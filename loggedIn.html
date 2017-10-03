@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <!--Responsive Mobile Meta Tag-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>HailMinder | Profile Page</title>
+
+    <link rel="icon" type="image/png" href="assets/images/favicon.ico">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Amatic+SC|BenchNine|Berkshire+Swash|Sacramento|Shrikhand" rel="stylesheet">
+
+    <!-- JavaScript Files-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.3.0/firebase.js"></script>
+    
+    <!--comm engine config -->
+    <script type="text/javascript" src="assets/javascript/commEngine.js"></script>
+    <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+    <script type="text/javascript">
+        (function () {
+          emailjs.init("user_lWCzStlfBbiEnhvHsaiTu");
+        })();
+    </script>
+  </head>
+
+  <body>
+  <br>
+
+  <!-- Welcome Modal -->
+  <div class="modal fade" id="welcomeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Thanks for signing up with us!</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+             <p>If you wouldn’t mind providing us with both your home and work zip codes we will begin to actively monitor hail near you.</p>
+             <p>When you are finished please click the Save Profile Info button</p>
+             <p>Don’t worry we’re not doing anything else with your data.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-success" data-dismiss="modal">Confirm</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <!-- Update Account Confirmation Modal -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Profile Updated</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Thank you for updating your profile information.</p>
+            <br>
+            <p>Using your provided location and notification settings, we can custom tailor an alert system to notify you in the event of an active, or even pending Hail Storm.  
+              </p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-success" data-dismiss="modal">Confirm</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <!-- Remove Account Confirmation Modal -->
+  <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Delete Account</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure that you want to delete your account?</p>
+          <br>
+          <p>This action cannot be undone. You will have to sign up as a new user should you wish to use hailMinder again.
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" onclick="removeAccount()" data-dismiss="modal">Confirm</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Page Content -->
+  <div class="container">
+
+    <div class="row col-sm-12">
+      <div class='text-center' id="header">
+        <img src="assets/images/multiLogo.png" height='50px' alt="hailMinder logo">
+      </div>
+      <hr>
+    </div>
+
+    <div class="row" id='profileRow'>
+      <div class="col-sm-3 text-center">
+        <div>
+          <img id="profilePic" src="assets/images/avatar-placeholder.png"/>
+        </div>
+        <br>
+        <button class="btn btn-success disabled">Change Profile Pic</button>
+        <br>
+        <br>
+        <button class="btn btn-success" onclick="signOut()">Sign Out</button>
+        <br>
+        <br>
+        <button class="btn btn-success" id="deleteModal">Delete Account</button>
+      </div>
+      <br>
+      <div class="col-sm-6">
+        <form>
+          <div class="form-group">
+            <label for="displayName">Name</label>
+            <input type="text" class="form-control" id="displayName" value="" placeholder="John Smith">
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" value="" placeholder="john.smith@genericEmail.com">
+          </div>
+          <div class="form-group">
+            <label for="homeZip">Home Zipcode</label>
+            <input type="number" class='form-control' id='homeZip' placeholder='90210'>
+          </div>
+          <div class="form-group">
+            <label for="workZip">Work Zipcode</label>
+            <input type="number" class="form-control" id="workZip" placeholder="90210">
+          </div>
+          <div class="form-group text-center">
+            <label for="">Email Notification</label>
+            <input name="emailCheckbox" id="emailToggle" type="checkbox" checked data-toggle="toggle">
+            <label for="">SMS Notification</label>
+            <input name="textCheckbox" id="notificationToggle" type="checkbox" checked data-toggle="toggle">
+          </div>
+          <div class="form-group" id="phoneNumberEntry">
+            <label for="phoneNumber">Phone Number</label>
+            <input type="tel" class="form-control" id="phoneNumber" value="" placeholder="8008675309" >
+          </div>
+          <div class="form-group" id="carrierDropdown">
+            <label for="exampleSelect1">Please select your phone carrier</label>
+            <select class="form-control" id="carrier">
+              <option id="empty"></option>
+              <option id="verizon">Verizon</option>
+              <option id="sprint">Sprint</option>
+              <option id="att">AT&T</option>
+              <option id="tmobile">t-mobile</option>
+            </select>
+          </div>
+          <div class='text-center'>
+            <button class="btn btn-success" id="updateButton">Save Profile Info</button>
+          </div>
+        </form>
+        <br>
+      </div>
+      <br>
+      <div class="col-sm-3 text-center" id='currentWeather'>
+        <h2><span id="city"></span></h2>
+        <p><span id="descriptionWeather"></span></p>
+        <br>
+        <img id="weatherIcon" />
+        <p><span id="temperature"></span></p>
+      </div>
+    </div>
+  </div>
+
+<script src="assets/javascript/logic.js"></script>
+<script src="assets/javascript/profileWeather.js"></script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+

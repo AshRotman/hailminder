@@ -1,0 +1,143 @@
+body {
+	background-color:#D1D3D4;
+	color:#5E5E5E;
+	font-family: 'Ubuntu', sans-serif;
+}
+
+a:hover {
+	text-decoration: none;
+	cursor: pointer;
+	background-color:rgba(192,192,192,0.2);
+}
+
+h3 {
+	font-family: 'Ubuntu', sans-serif;
+	text-align:center;
+	font-size:40px;
+}
+
+p {
+	margin: 0;
+}
+
+.jumbotron {
+	background: none;
+	padding-top: 26vh;
+	color: whitesmoke;
+	font-family: 'Ubuntu', sans-serif;
+}
+
+.menu-item {
+	padding: 8px 10px;
+	display: block;
+	border-bottom: 1px solid #e1e4e8;
+}
+
+.panel-body {
+	padding: 0px;
+}
+
+.btn {
+	background-color:#6BCDDA;
+	border-color:#63BCC8;
+}
+
+.btn-success:active {
+	background-color:#63BCC8;
+	border-color:#6BCDDA;
+}
+
+.btn-success:focus {
+	background-color:#63BCC8;
+	border-color:#6BCDDA;
+}
+
+.btn-success:active:hover {
+	background-color:#63BCC8;
+	border-color:#6BCDDA;
+}
+
+.btn-success:hover {
+	background-color:#63BCC8;
+	border-color:#6BCDDA;
+}
+
+.btn-success.disabled:hover {
+	background-color:#6BCDDA;
+	border-color:#63BCC8;
+}
+
+.form-control:focus {
+	border-color:#63BCC8;
+}
+
+#indexContainer {
+	background-image: url("../images/tenor.gif");
+	background-size: cover;
+	height: 100vh;
+}
+
+#login-logo {
+	width: 100%;
+}
+
+#profilePic {
+	width: 50%;
+	border-radius: 10px;
+}
+
+#emailToggle {
+	margin-right: 10px;
+}
+
+#currentWeather {
+	font-family: 'Ubuntu', sans-serif;
+}
+
+#currentWeather h2 {
+	margin-bottom: 0;
+}
+
+#temperature {
+	font-size: 50px;
+	margin-left: 15px;
+}
+
+
+/*******************************************
+			Media Queries
+*******************************************/
+
+
+@media only screen and (min-width: 768px) {
+	#profilePic {
+		width: 100%;
+		border-radius: 10px;
+	}
+
+	.firebaseui-card-header h1 {
+		font-size: 30px;
+	}
+
+	#login-logo {
+		width: 400px;
+		height:  87px;
+	}
+}
+
+@media only screen and (min-device-width : 440px) {
+
+	.firebaseui-card-header h1 {
+		font-size: 30px;
+	}
+
+	#login-logo {
+		width: 400px;
+		height: 87px;
+	}
+}
+
+
+
+
+
